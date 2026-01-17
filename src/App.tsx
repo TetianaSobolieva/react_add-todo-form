@@ -14,13 +14,13 @@ function getTodosWithUser(todos: Todo[], users: User[]): Todo[] {
   }));
 }
 
-export const App: React.FC<Todo[]> = () => {
+export const App: React.FC = () => {
   const preparedTodos = getTodosWithUser(todosFromServer, usersFromServer);
 
   const [todos, setTodos] = useState<Todo[]>(preparedTodos);
   const [title, setTitle] = useState('');
   const [selectedUserId, setSelectedUserId] = useState(0);
-  const [titelError, setTitleError] = useState(false);
+  const [titleError, setTitleError] = useState(false);
   const [selectedUserIdError, setSelectedUserIdError] = useState(false);
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -44,22 +44,20 @@ export const App: React.FC<Todo[]> = () => {
       return;
     }
 
-    const maxId = Math.max(0, ...todos.map(todo => todo.id));
+    const newId = Math.max(...todos.map(todo => todo.id), 0) + 1;
 
     const newTodo: Todo = {
-      id: maxId + 1,
+      id: newId,
       title: title.trim(),
       completed: false,
       userId: user.id,
       user,
     };
 
-    setTodos([...todos, newTodo]);
+    setTodos(prev => [...prev, newTodo]);
     setTitle('');
     setSelectedUserId(0);
   }
-
-  // console.log(todos);
 
   return (
     <div className="App">
@@ -77,7 +75,7 @@ export const App: React.FC<Todo[]> = () => {
               setTitleError(false);
             }}
           />
-          {titelError && <span className="error">Please enter a title</span>}
+          {titleError && <span className="error">Please enter a title</span>}
         </div>
 
         <div className="field">
