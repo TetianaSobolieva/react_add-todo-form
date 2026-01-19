@@ -6,11 +6,12 @@ import todosFromServer from './api/todos';
 import { TodoList } from './components/TodoList';
 import { User } from './types/User';
 import { Todo } from './types/Todo';
+import { TodoWithUser } from './types/TodoWithUser';
 
-function getTodosWithUser(todos: Todo[], users: User[]): Todo[] {
+function getTodosWithUser(todos: Todo[], users: User[]): TodoWithUser[] {
   return todos.map(todo => ({
     ...todo,
-    user: users.find(user => user.id === todo.userId)!,
+    user: users.find(user => user.id === todo.userId),
   }));
 }
 
@@ -46,7 +47,7 @@ export const App: React.FC = () => {
 
     const newId = Math.max(...todos.map(todo => todo.id), 0) + 1;
 
-    const newTodo: Todo = {
+    const newTodo: TodoWithUser = {
       id: newId,
       title: title.trim(),
       completed: false,

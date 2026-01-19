@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import { Todo } from '../../types/Todo';
 import { UserInfo } from '../UserInfo';
+import { TodoWithUser } from '../../types/TodoWithUser';
 
 type Props = {
-  todo: Todo;
+  todo: TodoWithUser;
 };
 
 export const TodoInfo: React.FC<Props> = ({ todo }) => {
@@ -18,7 +18,7 @@ export const TodoInfo: React.FC<Props> = ({ todo }) => {
     >
       <h2 className="TodoInfo__title">{title}</h2>
 
-      <UserInfo user={user} />
+      {user && <UserInfo user={user} />}
     </article>
   );
 };
