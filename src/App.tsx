@@ -18,7 +18,7 @@ function getTodosWithUser(todos: Todo[], users: User[]): TodoWithUser[] {
 export const App: React.FC = () => {
   const preparedTodos = getTodosWithUser(todosFromServer, usersFromServer);
 
-  const [todos, setTodos] = useState<Todo[]>(preparedTodos);
+  const [todos, setTodos] = useState<TodoWithUser[]>(preparedTodos);
   const [title, setTitle] = useState('');
   const [selectedUserId, setSelectedUserId] = useState(0);
   const [titleError, setTitleError] = useState(false);
